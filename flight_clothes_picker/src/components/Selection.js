@@ -3,7 +3,7 @@ import React from "react";
 class Selection extends React.Component {
   state = {
     startDate: "",
-    startLoc: "asd",
+    startLoc: "",
     endDate: "",
     endLoc: ""
   };
@@ -34,7 +34,7 @@ class Selection extends React.Component {
             <input
               type="date"
               value={this.state.startDate}
-              onChange={e => this.setState({ startDate: e.target.valueAsDate })}
+              onChange={e => this.setState({ startDate: e.target.value })}
             />
             <input
               type="text"
@@ -51,7 +51,7 @@ class Selection extends React.Component {
               type="date"
               id="arriveDate"
               value={this.state.endDate}
-              onChange={e => this.setState({ endDate: e.target.valueAsDate })}
+              onChange={e => this.setState({ endDate: e.target.value })}
             />
             <input
               type="text"
@@ -59,7 +59,7 @@ class Selection extends React.Component {
               value={this.state.endLoc}
               onChange={e => this.setState({ endLoc: e.target.value })}
             />
-            <button type="submit" className="ui button">
+            <button type="submit" className="ui button" onClick={this.onGo}>
               Go
             </button>
           </div>
