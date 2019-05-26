@@ -11,20 +11,8 @@ class Selection extends React.Component {
 
   //TODO: Change this to highlight the filed that needs to  be filled in rather than alerts
   onGo = event => {
-    const startDate = this.state.startDate;
-    const startLoc = this.state.startLoc;
-    const endDate = this.state.endDate;
-    const endLoc = this.state.endLoc;
-
-    if (startDate === "") {
-      alert("Select a start date");
-    } else if (startLoc === "") {
-      alert("Select a start location");
-    } else if (endDate === "") {
-      alert("Select a start date");
-    } else if (endLoc === "") {
-      alert("Select a end location");
-    }
+    // this.setState({ startDate: document.getElementById("firstDate").value });
+    // this.setState({ startLoc: document.getElementById("firstLoc").value });
   };
 
   render() {
@@ -35,12 +23,14 @@ class Selection extends React.Component {
             <div className="ui icon input icon">
               <input
                 type="date"
+                id="firstDate"
                 value={this.state.startDate}
                 onChange={e => this.setState({ startDate: e.target.value })}
               />
               <input
                 type="text"
                 placeholder="Leaving from..."
+                id="firstLoc"
                 value={this.state.startLoc}
                 onChange={e => this.setState({ startLoc: e.target.value })}
               />

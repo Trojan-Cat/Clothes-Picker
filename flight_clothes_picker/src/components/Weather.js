@@ -12,21 +12,38 @@ class Weather extends React.Component {
       recomended: "",
       key: "56f09b962e8a014f246bffc48f44b792",
       id: "7299965",
-      day: "2"
+      day: "2",
+      weather1: "",
+      weather2: ""
     };
   }
 
+  getDay = date => {
+    console.log(this.props.selections.startDate);
+    var dateNow = new Date().getDate();
+    if (date === "") {
+      console.log("Date is empty");
+    } else {
+      const uDate = date.substring(date.length - 2);
+      return uDate - dateNow;
+    }
+  };
+
   getRecomendation2 = (key, id, day) => {
+    const dayR = this.getDay(day);
+    console.log(dayR);
+
     axios
-      .get(`?daily=${day}&q=${id},AU&APPID=${key}`)
+      .get(`?daily=${dayR}&q=${id},AU&APPID=${key}`)
       .then(function(response) {
-        console.log(response);
+        // this.setState({ weather1: response.data.message });
+        console.log(response.data.message);
       })
       .catch(function(error) {
         console.log(error);
       });
 
-    console.log("Yippie");
+    //return <div>response.data.message</div>;
   };
 
   getRecomendation = (key, id, day) => {
@@ -38,10 +55,6 @@ class Weather extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
-
-    console.log("Yas " + this.props.selections.startLoc);
-
-    console.log("Yippie");
   };
 
   render() {
@@ -50,22 +63,20 @@ class Weather extends React.Component {
         <div>
           <h1>Weather when you are leaving is:</h1>
           <div>
-            {this.getRecomendation2(
-              this.state.key,
-              "Melbourne",
-              this.state.day
-            )}
+            <button
+              conclick={this.getRecomendation2(
+                this.state.key,
+                this.props.selections.startLoc,
+                this.props.selections.startDate
+              )}
+            >
+              Click me{" "}
+            </button>
           </div>
         </div>
         <div>
           <h1>Weather when you are arriving is:</h1>
-          <div>
-            {this.getRecomendation(
-              this.state.key,
-              this.state.id,
-              this.state.day
-            )}
-          </div>
+          <div />
         </div>
       </div>
     );
