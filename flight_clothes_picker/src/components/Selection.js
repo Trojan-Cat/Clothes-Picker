@@ -1,4 +1,5 @@
 import React from "react";
+import Weather from "./Weather";
 
 class Selection extends React.Component {
   state = {
@@ -28,41 +29,46 @@ class Selection extends React.Component {
 
   render() {
     return (
-      <div className="ui menu">
-        <div className="item">
-          <div className="ui icon input icon">
-            <input
-              type="date"
-              value={this.state.startDate}
-              onChange={e => this.setState({ startDate: e.target.value })}
-            />
-            <input
-              type="text"
-              placeholder="Leaving from..."
-              value={this.state.startLoc}
-              onChange={e => this.setState({ startLoc: e.target.value })}
-            />
-            <i aria-hidden="true" className="search icon" />
+      <div>
+        <div className="ui menu">
+          <div className="item">
+            <div className="ui icon input icon">
+              <input
+                type="date"
+                value={this.state.startDate}
+                onChange={e => this.setState({ startDate: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Leaving from..."
+                value={this.state.startLoc}
+                onChange={e => this.setState({ startLoc: e.target.value })}
+              />
+              <i aria-hidden="true" className="search icon" />
+            </div>
+          </div>
+          <div className="right item">
+            <div className="ui action input">
+              <input
+                type="date"
+                id="arriveDate"
+                value={this.state.endDate}
+                onChange={e => this.setState({ endDate: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Arriving at..."
+                value={this.state.endLoc}
+                onChange={e => this.setState({ endLoc: e.target.value })}
+              />
+              <button type="submit" className="ui button" onClick={this.onGo}>
+                Go
+              </button>
+            </div>
           </div>
         </div>
-        <div className="right item">
-          <div className="ui action input">
-            <input
-              type="date"
-              id="arriveDate"
-              value={this.state.endDate}
-              onChange={e => this.setState({ endDate: e.target.value })}
-            />
-            <input
-              type="text"
-              placeholder="Arriving at..."
-              value={this.state.endLoc}
-              onChange={e => this.setState({ endLoc: e.target.value })}
-            />
-            <button type="submit" className="ui button" onClick={this.onGo}>
-              Go
-            </button>
-          </div>
+        <div>
+          <Weather selections={this.state} />
         </div>
       </div>
     );

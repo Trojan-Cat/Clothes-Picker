@@ -1,12 +1,8 @@
 import React from "react";
 import axios from "../apis/OpenWeatherMap";
-//import axios from "../apis/OpenWeatherMap";
 
-//const key = "56f09b962e8a014f246bffc48f44b792";
-//const id = "7299965";
-//const day = "2";
-
-//{this.props.locations}
+//{this.props.selections}
+//q={city name},{country code}
 
 class Weather extends React.Component {
   constructor(props) {
@@ -20,9 +16,9 @@ class Weather extends React.Component {
     };
   }
 
-  getRecomendation = (key, id, day) => {
+  getRecomendation2 = (key, id, day) => {
     axios
-      .get(`?daily=${day}&id=${id}&APPID=${key}`)
+      .get(`?daily=${day}&q=${id},AU&APPID=${key}`)
       .then(function(response) {
         console.log(response);
       })
@@ -33,15 +29,30 @@ class Weather extends React.Component {
     console.log("Yippie");
   };
 
+  getRecomendation = (key, id, day) => {
+    axios
+      .get(`?daily=${day}&id=${id}&APPID=${key}`)
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    console.log("Yas " + this.props.selections.startLoc);
+
+    console.log("Yippie");
+  };
+
   render() {
     return (
       <div>
         <div>
           <h1>Weather when you are leaving is:</h1>
           <div>
-            {this.getRecomendation(
+            {this.getRecomendation2(
               this.state.key,
-              this.state.id,
+              "Melbourne",
               this.state.day
             )}
           </div>
