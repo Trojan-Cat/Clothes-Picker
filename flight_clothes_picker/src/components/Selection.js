@@ -1,6 +1,7 @@
 import React from "react";
-
 import axios from "../apis/OpenWeatherMap";
+
+import StateDropDown from "../helpers/StateDropDown";
 
 class Selection extends React.Component {
   state = {
@@ -14,13 +15,14 @@ class Selection extends React.Component {
   };
 
   getWeather = () => {
+    console.log(this.state.endLoc);
     const key = this.state.key;
     const startDate = this.state.startDate;
     const startLoc = this.state.startLoc;
     const endDate = this.state.endDate;
     const endLoc = this.state.endLoc;
     //   const weather1 = this.state.weather1;
-    //  const weather2 = this.state.weather2;
+    const weather2 = this.state.weather2;
     console.log(`${startDate} and ${startLoc} `);
 
     if (startDate === "") {
@@ -108,6 +110,7 @@ class Selection extends React.Component {
                 value={this.state.endLoc}
                 onChange={e => this.setState({ endLoc: e.target.value })}
               />
+              <StateDropDown />
               <button
                 type="submit"
                 className="ui button"
