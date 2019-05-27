@@ -1,12 +1,69 @@
 import React from "react";
-import Weather from "./Weather";
+
+import axios from "../apis/OpenWeatherMap";
 
 class Selection extends React.Component {
   state = {
+    key: "56f09b962e8a014f246bffc48f44b792",
     startDate: "",
     startLoc: "",
     endDate: "",
-    endLoc: ""
+    endLoc: "",
+    weather1: "",
+    weather2: ""
+  };
+
+  getWeather = () => {
+    const key = this.state.key;
+    const startDate = this.state.startDate;
+    const startLoc = this.state.startLoc;
+    const endDate = this.state.endDate;
+    const endLoc = this.state.endLoc;
+    //   const weather1 = this.state.weather1;
+    //  const weather2 = this.state.weather2;
+    console.log(`${startDate} and ${startLoc} `);
+
+    if (startDate === "") {
+      alert("Fill in start date");
+    } else if (startLoc === "") {
+      alert("Fill in start location");
+    } else if (endDate === "") {
+      alert("Fill in end date");
+    } else if (endLoc === "") {
+      alert("Fill in end location");
+    } else {
+      this.getRecomendation(key, startDate, startLoc).then(function(response) {
+        console.log(`this is the response we get back ${response}`);
+      });
+    }
+  };
+
+  getRecomendation = async (key, day, id, stateId) => {
+    const dayR = this.getDay(day);
+    console.log(dayR);
+
+    await axios
+      .get(`?daily=${day}&q=${id},AU&APPID=${key}`)
+      .then(function(response) {
+        const sendBack = response.data.message;
+        console.log(`before being send back ${sendBack}`);
+        return sendBack;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    //return <div>response.data.message</div>;
+  };
+
+  getDay = date => {
+    var dateNow = new Date().getDate();
+    if (date === "") {
+      console.log("Date is empty");
+    } else {
+      const uDate = date.substring(date.length - 2);
+      return uDate - dateNow;
+    }
   };
 
   //TODO: Change this to highlight the filed that needs to  be filled in rather than alerts
@@ -51,14 +108,21 @@ class Selection extends React.Component {
                 value={this.state.endLoc}
                 onChange={e => this.setState({ endLoc: e.target.value })}
               />
-              <button type="submit" className="ui button" onClick={this.onGo}>
+              <button
+                type="submit"
+                className="ui button"
+                onClick={this.getWeather}
+              >
                 Go
               </button>
             </div>
           </div>
         </div>
         <div>
-          <Weather selections={this.state} />
+          <h1>Weather when you are Leaving is: {this.state.weather1}</h1>
+        </div>
+        <div>
+          <h1>Weather when you are arriving is: {this.state.weather2}</h1>
         </div>
       </div>
     );
