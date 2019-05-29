@@ -21,8 +21,7 @@ class Selection extends React.Component {
     const startLoc = this.state.startLoc;
     const endDate = this.state.endDate;
     const endLoc = this.state.endLoc;
-    //   const weather1 = this.state.weather1;
-    const weather2 = this.state.weather2;
+
     console.log(`${startDate} and ${startLoc} `);
 
     if (startDate === "") {
@@ -34,28 +33,26 @@ class Selection extends React.Component {
     } else if (endLoc === "") {
       alert("Fill in end location");
     } else {
-      this.getRecomendation(key, startDate, startLoc).then(function(response) {
-        console.log(`this is the response we get back ${response}`);
+      this.getRecomendation(key, startDate, startLoc).then(response => {
+        console.log(`This is the resoppnse ${response}`);
       });
     }
   };
 
-  getRecomendation = async (key, day, id, stateId) => {
+  getRecomendation = async (key, day, id) => {
     const dayR = this.getDay(day);
     console.log(dayR);
 
     await axios
       .get(`?daily=${day}&q=${id},AU&APPID=${key}`)
-      .then(function(response) {
-        const sendBack = response.data.message;
-        console.log(`before being send back ${sendBack}`);
-        return sendBack;
+      .then(resp => resp.json())
+      .then(result => {
+        console.log(result.data.message);
+        this.setState({ weather1: result.data.message });
       })
       .catch(function(error) {
         console.log(error);
       });
-
-    //return <div>response.data.message</div>;
   };
 
   getDay = date => {
@@ -66,12 +63,6 @@ class Selection extends React.Component {
       const uDate = date.substring(date.length - 2);
       return uDate - dateNow;
     }
-  };
-
-  //TODO: Change this to highlight the filed that needs to  be filled in rather than alerts
-  onGo = event => {
-    // this.setState({ startDate: document.getElementById("firstDate").value });
-    // this.setState({ startLoc: document.getElementById("firstLoc").value });
   };
 
   render() {
