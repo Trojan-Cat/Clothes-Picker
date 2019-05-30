@@ -1,8 +1,8 @@
 Clothes picker
 
 - Select a major city from within Australia
-- Select the date for when you will be leaving city A and date for arriving in City B
-- Get back weather for the two locations, allowing you to prepare proper clothing for the trip
+- Select the dates that you wish to know the weather for
+- Get a result of those dates, and a suggestion of what to wear
 
 TODO
 
