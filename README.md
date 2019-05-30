@@ -1,5 +1,10 @@
 Clothes picker
 
+- Clone project
+- cd into directory, cd into clothes-picker
+- npm install
+- npm run
+
 - Select a major city from within Australia
 - Select the dates that you wish to know the weather for
 - Get a result of those dates, and a suggestion of what to wear
