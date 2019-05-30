@@ -13,4 +13,7 @@ TODO
 - [ ] TODO: Style with semantic-ui
 - [ ] TODO: Add icons next to clothes suggestions
 - [ ] TODO: Have recomendations not only take into account the weather(rain, cloud, etc...) but also the temp for clothes
+- [ ] TODO: Error handling if city  name is wrong
+- [ ] TODO: Allow to change country
+- [ ] TODO: Allow to change temp that is recived
 - [ ] TODO: Change Textbox for City to drop down list
