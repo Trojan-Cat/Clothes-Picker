@@ -1,35 +1,29 @@
 import React from "react";
 import axios from "../apis/OpenWeatherMap";
-
-//import StateDropDown from "../helpers/StateDropDown";
+import ClothesRec from "./ClothesRec";
 
 class Selection extends React.Component {
   state = {
     key: "56f09b962e8a014f246bffc48f44b792",
-    days: "",
-    startLoc: "",
+    days: "1",
+    startLoc: "Melbourne",
     weather1: []
   };
 
-  getWeather = () => {
+  getWeatherCheck = () => {
     const days = this.state.days;
     const startLoc = this.state.startLoc;
-    //const endDate = this.state.endDate;
-    //const endLoc = this.state.endLoc;
 
     if (days === "") {
       alert("Fill in start date");
     } else if (startLoc === "") {
       alert("Fill in start location");
     } else {
-      this.getRecomendation(days, startLoc);
-      // this.getRecomendation(endDate, endLoc, weather2);
+      this.getWeather(days, startLoc);
     }
   };
 
-  getRecomendation = async (day, id) => {
-    // const key = this.state.key;
-    // const dayR = this.getDay(day);
+  getWeather = async (day, id) => {
     const key = this.state.key;
 
     await axios
@@ -42,17 +36,17 @@ class Selection extends React.Component {
     console.log(this.state.weather1);
   };
 
-  /* Created for using a date but not needed with the forcast api call
-  getDay = date => {
-    var dateNow = new Date().getDate();
-    if (date === "") {
-      console.log("Date is empty");
+  getClothesRecomendation = () => {
+    if (this.state.weather1[0] === undefined) {
+      return <div>Enter some dates to find out what is best to wear</div>;
     } else {
-      const uDate = date.substring(date.length - 2);
-      return uDate - dateNow;
+      return (
+        <div role="list" className="ui divided relaxed list">
+          <ClothesRec data={this.state.weather1} />
+        </div>
+      );
     }
   };
-*/
 
   render() {
     return (
@@ -78,15 +72,13 @@ class Selection extends React.Component {
             <button
               type="submit"
               className="ui button"
-              onClick={this.getWeather}
+              onClick={this.getWeatherCheck}
             >
               Go
             </button>
           </div>
         </div>
-        <div>
-          <h1>Weather: {this.state.weather}</h1>
-        </div>
+        <div>{this.getClothesRecomendation()}</div>
       </div>
     );
   }
