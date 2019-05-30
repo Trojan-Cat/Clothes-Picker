@@ -1,9 +1,11 @@
 Clothes picker
-- Select a current main city from within Australia
+- Select a major city from within Australia
 - Select the date for when you will be leaving city A and date for arriving in City B
 - Get back weather for the two locations, allowing you to prepare proper clothing for the trip
 
 TODO
+- [x] TODO: Display the weather between two locations
+- [ ] TODO: Change weather to celsius (Give option to pick between c or f)
 - [ ] TODO: Change Textbox for City to drop down list
 - [ ] TODO: Change the weather api to allow more than 5 day forcast
 - [ ] TODO: Allow for recomendation of pants or shorts type clothes etc...
