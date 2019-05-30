@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "../apis/OpenWeatherMap";
 
-import StateDropDown from "../helpers/StateDropDown";
+//import StateDropDown from "../helpers/StateDropDown";
 
 class Selection extends React.Component {
   state = {
@@ -15,14 +15,13 @@ class Selection extends React.Component {
   };
 
   getWeather = () => {
-    console.log(this.state.endLoc);
-    const key = this.state.key;
     const startDate = this.state.startDate;
     const startLoc = this.state.startLoc;
     const endDate = this.state.endDate;
     const endLoc = this.state.endLoc;
 
-    console.log(`${startDate} and ${startLoc} `);
+    const weather1 = 1;
+    const weather2 = 2;
 
     if (startDate === "") {
       alert("Fill in start date");
@@ -33,22 +32,23 @@ class Selection extends React.Component {
     } else if (endLoc === "") {
       alert("Fill in end location");
     } else {
-      this.getRecomendation(key, startDate, startLoc).then(response => {
-        console.log(`This is the resoppnse ${response}`);
-      });
+      this.getRecomendation(startDate, startLoc, weather1);
+      this.getRecomendation(endDate, endLoc, weather2);
     }
   };
 
-  getRecomendation = async (key, day, id) => {
+  getRecomendation = async (day, id, weather) => {
+    const key = this.state.key;
     const dayR = this.getDay(day);
-    console.log(dayR);
 
     await axios
-      .get(`?daily=${day}&q=${id},AU&APPID=${key}`)
-      .then(resp => resp.json())
-      .then(result => {
-        console.log(result.data.message);
-        this.setState({ weather1: result.data.message });
+      .get(`?daily=${dayR}&q=${id},AU&APPID=${key}`)
+      .then(response => {
+        if (weather === 1) {
+          this.setState({ weather1: response.data.message });
+        } else {
+          this.setState({ weather2: response.data.message });
+        }
       })
       .catch(function(error) {
         console.log(error);
@@ -101,7 +101,7 @@ class Selection extends React.Component {
                 value={this.state.endLoc}
                 onChange={e => this.setState({ endLoc: e.target.value })}
               />
-              <StateDropDown />
+
               <button
                 type="submit"
                 className="ui button"
