@@ -11,7 +11,7 @@ class App extends React.Component {
       <div className="ui container">
         <div>
           <h1 className="ui  center aligned header">
-            Select your flight details
+            Find out what to wear for the next few days
           </h1>
         </div>
         <Selection />
